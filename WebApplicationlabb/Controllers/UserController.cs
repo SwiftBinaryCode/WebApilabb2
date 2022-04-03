@@ -26,14 +26,13 @@ namespace WebApplicationlabb.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{email}")]
+        [HttpGet("Users/email")]
         public IActionResult GetUserByEmail(string email)
         {
             var user = _unitOfWork.UserRepository.GetUserByEmail(email);
 
             return user is null ? NotFound() : Ok(user);
         }
-
         [HttpGet("{id}/Courses")]
         public IActionResult GetUserCourses(int id)
         {

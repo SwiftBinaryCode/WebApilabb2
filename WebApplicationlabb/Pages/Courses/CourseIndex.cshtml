@@ -5,7 +5,15 @@
     ViewData["Title"] = "Courses page";
 }
 <form action="/courses" method="post">
+    <input type="number" id="course-number" placeholder="Number">
+    <br/>
     <input type="text" id="course-name" placeholder="Name">
+    <br/>
+    <input type="text" id="course-description" placeholder="Description">
+    <br/>
+    <input type="text" id="course-length" placeholder="Length">
+    <br/>
+    <input type="text" id="course-status" placeholder="Status">
     <br/>
 </form>
 <button class="btn btn-secondary" id="add-course">Add Course</button>
@@ -27,13 +35,10 @@
             </div>
             <div class="modal-body">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="user-name" placeholder="name@example.com">
-                    <label for="user-name">Name</label>
+                    <input type="text" class="form-control" id="user-id" placeholder="user id">
+                    <label for="user-id">Id</label>
                 </div>
-                <div class="form-floating">
-                    <input type="email" class="form-control" id="user-email" placeholder="Email">
-                    <label for="user-email">Email</label>
-                </div>
+               
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -53,17 +58,20 @@
         addCourse.addEventListener('click',
             function(event) {
                 event.preventDefault();
+                const courseNumber = document.getElementById("course-number").value;
                 const courseName = document.getElementById("course-name").value;
-                const courseInfo = { name: courseName };
+                const courseDescription = document.getElementById("course-description").value;
+                const courseLength = document.getElementById("course-length").value;
+                const courseStatus = document.getElementById("course-status").value;
+                const courseInfo = { name: courseName,number:courseNumber,description:courseDescription,length:courseLength };
                 postCourse("/Course", courseInfo);
             });
         enrollUserSubmit.addEventListener('click',
             function(event) {
                 event.preventDefault();
-                const userName = document.getElementById("user-name").value;
-                const userEmail = document.getElementById("user-email").value;
-                const userInfo = { name: userName, email: userEmail };
-                enrollUser("/Course/{id}", userInfo);
+                const userId = document.getElementById("user-id").value;
+                const userInfo = { id: userId};
+                enrollUser("{id}", userInfo);
             });
         getAllCourses.addEventListener("click",
             () => {
@@ -77,7 +85,11 @@
                         let content = `<div class="col-sm-4">
                         <div class="card">
                         <div class="card-body">
+                        <h5 class="card-title">${data[i].number}</h5>
                         <h5 class="card-title">${data[i].name}</h5>
+                        <h5 class="card-title">${data[i].description}</h5>
+                        <h5 class="card-title">${data[i].length}</h5>
+                        <h5 class="card-title">${data[i].status}</h5>
                         <button id="enroll" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#enrollUser">Enroll</button>
                         </div>
                         </div>
@@ -100,7 +112,7 @@
         const enrollUser = (url = "", data = {} ) => {
             fetch(url,
                     {
-                        method: "POST",
+                        method: "PUT",
                         headers: {
                             "Content-Type": "application/json"
                         },

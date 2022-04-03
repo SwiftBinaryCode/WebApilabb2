@@ -3,11 +3,16 @@
 @{
     ViewData["Title"] = "Users page";
 }
-
 <form action="/users" method="post">
     <input type="text" id="user-name" placeholder="Name">
     <br/>
     <input type="text" id="user-email" placeholder="Email">
+    <br/>
+    <input type="text" id="user-lastname" placeholder="Lastname">
+    <br/>
+    <input type="number" id="user-mobile" placeholder="Mobile">
+    <br/>
+    <input type="text" id="user-address" placeholder="Address">
     <br/>
 </form>
 <button class="btn btn-secondary" id="add-user">Add user</button>
@@ -29,8 +34,12 @@
             function(event) {
                 event.preventDefault();
                 const userName = document.getElementById("user-name").value;
+                const userLastname = document.getElementById("user-lastname").value;
                 const userEmail = document.getElementById("user-email").value;
-                const userInfo = { name: userName, email: userEmail };
+                const userMobile = document.getElementById("user-mobile").value;
+                const userAddress = document.getElementById("user-address").value;
+                const userInfo = { name: userName, email: userEmail, 
+                    lastname: userLastname,mobile:userMobile, address:userAddress};
                 postUser("/User", userInfo);
             });
         getAllUsers.addEventListener("click",
@@ -45,13 +54,11 @@
                         let content = `<div class="col-sm-4">
                         <div class="card">
                         <div class="card-body">
-                        <h5 class="card-title">${data[i].name}</h5>
+                        <p class="card-title">${data[i].name}</p>
+                        <p class="card-title">${data[i].lastname}</p>
                         <p class="card-title">${data[i].email}</p>
-                        <p class="card-title">
-                        <ul>
-                        <li>${data[i].courses}</li>
-                        </ul>
-                        </p>
+                        <p class="card-title">${data[i].mobile}</p>
+                        <p class="card-title">${data[i].address}</p>
                         </div>
                         </div>
                         </div>`;

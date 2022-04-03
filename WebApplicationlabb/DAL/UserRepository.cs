@@ -39,18 +39,13 @@ namespace WebApplicationlabb.DAL
 
             return user.Courses;
         }
-
         public User? GetUserByEmail(string email)
         {
             return _context.Users.FirstOrDefault(u => u.Email == email);
         }
 
-        //public ICollection<Course>? GetUserCourses(int id)
-        //{
-        //    var getUser = _context.Users.Find(id);
 
-        //    return getUser == null ? null : getUser.Courses;
-        //}
+     
 
         public bool UpdateUser(int id, User user)
         {
@@ -59,9 +54,9 @@ namespace WebApplicationlabb.DAL
 
             existingUser.Name = user.Name;
             existingUser.Email = user.Email;
-            //existingUser.Mobile = user.Mobile;
-            //existingUser.Address = user.Address;
-           
+            existingUser.Mobile = user.Mobile;
+            existingUser.Address = user.Address;
+
             _context.SaveChanges();
             return true;
         }
