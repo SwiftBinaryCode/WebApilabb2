@@ -1,4 +1,5 @@
-﻿using WebApplicationlabb.DAL.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApplicationlabb.DAL.Models;
 
 namespace WebApplicationlabb.DAL
 {
@@ -30,17 +31,26 @@ namespace WebApplicationlabb.DAL
             return _context.Users.Find(id);
         }
 
+        public ICollection<Course>? GetUserCourses(int id)
+        {
+            var user = _context.Users.Include(u => u.Courses).FirstOrDefault(u => u.Id == id);
+            if (user is null)
+                return null;
+
+            return user.Courses;
+        }
+
         public User? GetUserByEmail(string email)
         {
             return _context.Users.FirstOrDefault(u => u.Email == email);
         }
 
-        public ICollection<Course>? GetUserCourses(int id)
-        {
-            var getUser = _context.Users.Find(id);
+        //public ICollection<Course>? GetUserCourses(int id)
+        //{
+        //    var getUser = _context.Users.Find(id);
 
-            return getUser == null ? null : getUser.Courses;
-        }
+        //    return getUser == null ? null : getUser.Courses;
+        //}
 
         public bool UpdateUser(int id, User user)
         {
@@ -49,8 +59,8 @@ namespace WebApplicationlabb.DAL
 
             existingUser.Name = user.Name;
             existingUser.Email = user.Email;
-            existingUser.Mobile = user.Mobile;
-            existingUser.Address = user.Address;
+            //existingUser.Mobile = user.Mobile;
+            //existingUser.Address = user.Address;
            
             _context.SaveChanges();
             return true;

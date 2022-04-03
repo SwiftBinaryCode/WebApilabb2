@@ -40,7 +40,7 @@
             _context = context;
         }
 
-        public void Save()
+        public void SaveChanges()
         {
             _context.SaveChanges();
         }
@@ -48,8 +48,7 @@
         public void Dispose()
         {
             _context.Dispose();
-            //_userRepository.Dispose();
-            //_courseRepository.Dispose();
+            
 
         }
     }

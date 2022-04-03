@@ -14,11 +14,12 @@ namespace WebApplicationlabb.DAL
         public DbSet<Course> Courses { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>()
-                .HasMany<Course>(u => u.Courses)
-                .WithMany(c => c.Users)
-                .UsingEntity(x => x.ToTable("UserCourse"));
+            //modelBuilder.Entity<User>()
+            //    .HasMany<Course>(u => u.Courses)
+            //    .WithMany(c => c.Users)
+            //    .UsingEntity(x => x.ToTable("UserCourse"));
 
         }
     }

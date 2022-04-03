@@ -34,12 +34,12 @@ namespace WebApplicationlabb.Controllers
             return user is null ? NotFound() : Ok(user);
         }
 
-        [HttpGet("/User/{id}/courses")]
+        [HttpGet("{id}/Courses")]
         public IActionResult GetUserCourses(int id)
         {
-            var userCourse = _unitOfWork.UserRepository.GetUserCourses(id);
+            var user = _unitOfWork.UserRepository.GetUserCourses(id);
 
-            return userCourse is null ? NotFound() : Ok(userCourse);
+            return user is not null ? Ok(user) : NotFound();
         }
 
         [HttpPost]

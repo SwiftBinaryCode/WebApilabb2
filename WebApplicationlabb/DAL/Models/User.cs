@@ -1,17 +1,29 @@
-﻿namespace WebApplicationlabb.DAL.Models
+﻿using System.Text.Json.Serialization;
+
+namespace WebApplicationlabb.DAL.Models
 {
     public class User
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
+
         public string Email { get; set; }
-        public int Mobile { get; set; }
-        public string Address { get; set; } = string.Empty;
+
+        [JsonIgnore]
         public virtual ICollection<Course> Courses { get; set; }
+
+        public User(string name, string email)
+        {
+            Name = name;
+            Email = email;
+            Courses = new HashSet<Course>();
+
+        }
 
         public User()
         {
-            Courses = new List<Course>();
+            Courses = new HashSet<Course>();
         }
     }
 }

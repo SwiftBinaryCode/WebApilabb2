@@ -27,29 +27,37 @@ namespace WebApplicationlabb.Controllers
             return Ok(courses);
         }
 
+        //[HttpGet("{id}")]
+        //public IActionResult GetCourse(int id)
+        //{
+        //    var course = _unitOfWork.CourseRepository.GetCourse(id);
+
+        //    return course is null ? NotFound() : Ok(course);
+        //}
+
         [HttpGet("{id}")]
-        public IActionResult GetCourse(int id)
+        public IActionResult GetCourseUsers(int id)
         {
-            var course = _unitOfWork.CourseRepository.GetCourse(id);
-
-            return course is null ? NotFound() : Ok(course);
+            return Ok(_unitOfWork.CourseRepository.GetCourseUsers(id));
         }
 
-        [HttpGet("{number}")]
-        public IActionResult GetCourseByNumber(int number)
+        [HttpPut("{id}")]
+        public IActionResult AddUserToCourse(int id, int userId)
         {
-            var course = _unitOfWork.CourseRepository.GetCourseByNumber(number);
-
-            return course is null ? NotFound() : Ok(course);
+            _unitOfWork.CourseRepository.AddUserToCourse(id, userId);
+            _unitOfWork.SaveChanges();
+            return Ok();
         }
 
-        [HttpGet("/Course/{id}/users")]
-        public IActionResult GetUserCourses(int id)
-        {
-            var userCourse = _unitOfWork.CourseRepository.GetUserCourses(id);
+        //[HttpGet("{number}")]
+        //public IActionResult GetCourseByNumber(int number)
+        //{
+        //    var course = _unitOfWork.CourseRepository.GetCourseByNumber(number);
 
-            return userCourse is null ? NotFound() : Ok(userCourse);
-        }
+        //    return course is null ? NotFound() : Ok(course);
+        //}
+
+      
 
         [HttpPost]
         public IActionResult Post([FromBody] Course? course)
@@ -59,21 +67,14 @@ namespace WebApplicationlabb.Controllers
             return _unitOfWork.CourseRepository.CreateCourse(course) ? Ok() : Conflict("Course already exists");
         }
 
-        [HttpPost("/Course/{id}")]
-        public IActionResult PostUser([FromBody] User user, int id)
-        {
-            if (user is null) return BadRequest();
 
-            return _unitOfWork.CourseRepository.ListUserForCourse(user, id) ? Ok(id) : NotFound();
-        }
+        //[HttpPut("{id}")]
+        //public IActionResult Put(int id, Course course)
+        //{
+        //    if (string.IsNullOrEmpty(course.Name.Trim())) return BadRequest();
 
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, Course course)
-        {
-            if (string.IsNullOrEmpty(course.Name.Trim())) return BadRequest();
-
-            return _unitOfWork.CourseRepository.UpdateCourse(id, course) ? Ok() : NotFound();
-        }
+        //    return _unitOfWork.CourseRepository.UpdateCourse(id, course) ? Ok() : NotFound();
+        //}
 
         [HttpPatch("/Course/{id}/name")]
         public IActionResult PatchName(int id, string name)

@@ -1,4 +1,5 @@
-﻿using WebApplicationlabb.DAL.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApplicationlabb.DAL.Models;
 
 namespace WebApplicationlabb.DAL
 {
@@ -20,22 +21,37 @@ namespace WebApplicationlabb.DAL
             return true;
         }
 
-        public bool ListUserForCourse(User user, int id)
-        {
-            var course = _context.Courses.Find(id);
-            var getUser = _context.Users.FirstOrDefault(u => u.Email == user.Email);
-
-            if (course is null || getUser is null) return false;
-
-            course.Users.Add(getUser);
-            getUser.Courses.Add(course);
-            _context.SaveChanges();
-            return true;
-        }
-
         public ICollection<Course> GetAllCourses()
         {
             return _context.Courses.ToList();
+        }
+
+        public ICollection<User>? GetCourseUsers(int id)
+        {
+            var course = _context.Courses.Include(g => g.Users).FirstOrDefault(g => g.Id == id);
+            if (course is null)
+                return null;
+
+            return course.Users;
+        }
+        public bool AddUserToCourse(int courseId, int userId)
+        {
+            var existingUser = _context.Users.FirstOrDefault(u => u.Id == userId);
+            if (existingUser is null)
+            {
+                return false;
+            }
+
+            var existingCourse = _context.Courses.FirstOrDefault(g => g.Id == courseId);
+            if (existingCourse is null)
+            {
+                return false;
+            }
+
+            existingCourse.Users.Add(existingUser);
+           
+
+            return true;
         }
 
         public Course? GetCourse(int id)
@@ -46,13 +62,6 @@ namespace WebApplicationlabb.DAL
         {
             return _context.Courses.Find(number);
         }
-       
-        public ICollection<User>? GetUserCourses(int id)
-        {
-            var getUser = _context.Courses.Find(id);
-
-            return getUser == null ? null : getUser.Users.ToList();
-        }
 
         public bool UpdateCourse(int id, Course course)
         {
@@ -60,11 +69,11 @@ namespace WebApplicationlabb.DAL
             if (existingCourse is null) return false;
 
             existingCourse.Name = course.Name;
-            existingCourse.Description = course.Description;
-            existingCourse.Number = course.Number;
-            existingCourse.Level = course.Level;
-            existingCourse.Status = course.Status;
-            existingCourse.Length = course.Length;
+            //existingCourse.Description = course.Description;
+            //existingCourse.Number = course.Number;
+            //existingCourse.Level = course.Level;
+            //existingCourse.Status = course.Status;
+            //existingCourse.Length = course.Length;
             _context.SaveChanges();
             return true;
         }
@@ -94,6 +103,7 @@ namespace WebApplicationlabb.DAL
         public void Dispose()
         {
             _context.Dispose();
+           
         }
 
 

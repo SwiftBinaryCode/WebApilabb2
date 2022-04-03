@@ -4,7 +4,7 @@
 
 namespace WebApplicationlabb.Migrations
 {
-    public partial class tst1 : Migration
+    public partial class test1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,12 +14,7 @@ namespace WebApplicationlabb.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Number = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Length = table.Column<int>(type: "int", nullable: false),
-                    Level = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,9 +28,7 @@ namespace WebApplicationlabb.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mobile = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,7 +36,7 @@ namespace WebApplicationlabb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserCourse",
+                name: "CourseUser",
                 columns: table => new
                 {
                     CoursesId = table.Column<int>(type: "int", nullable: false),
@@ -51,15 +44,15 @@ namespace WebApplicationlabb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserCourse", x => new { x.CoursesId, x.UsersId });
+                    table.PrimaryKey("PK_CourseUser", x => new { x.CoursesId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_UserCourse_Courses_CoursesId",
+                        name: "FK_CourseUser_Courses_CoursesId",
                         column: x => x.CoursesId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserCourse_Users_UsersId",
+                        name: "FK_CourseUser_Users_UsersId",
                         column: x => x.UsersId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -67,15 +60,15 @@ namespace WebApplicationlabb.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserCourse_UsersId",
-                table: "UserCourse",
+                name: "IX_CourseUser_UsersId",
+                table: "CourseUser",
                 column: "UsersId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserCourse");
+                name: "CourseUser");
 
             migrationBuilder.DropTable(
                 name: "Courses");

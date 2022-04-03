@@ -11,8 +11,8 @@ using WebApplicationlabb.DAL;
 namespace WebApplicationlabb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220401073253_tst1")]
-    partial class tst1
+    [Migration("20220403084612_test1")]
+    partial class test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,7 +35,7 @@ namespace WebApplicationlabb.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("UserCourse", (string)null);
+                    b.ToTable("CourseUser");
                 });
 
             modelBuilder.Entity("WebApplicationlabb.DAL.Models.Course", b =>
@@ -46,25 +46,7 @@ namespace WebApplicationlabb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Length")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Level")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -81,16 +63,9 @@ namespace WebApplicationlabb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Mobile")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
