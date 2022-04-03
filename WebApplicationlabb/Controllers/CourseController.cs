@@ -49,15 +49,15 @@ namespace WebApplicationlabb.Controllers
             return Ok();
         }
 
-        //[HttpGet("{number}")]
-        //public IActionResult GetCourseByNumber(int number)
-        //{
-        //    var course = _unitOfWork.CourseRepository.GetCourseByNumber(number);
+        [HttpGet("{number}")]
+        public IActionResult GetCourseByNumber(int number)
+        {
+            var course = _unitOfWork.CourseRepository.GetCourseByNumber(number);
 
-        //    return course is null ? NotFound() : Ok(course);
-        //}
+            return course is null ? NotFound() : Ok(course);
+        }
 
-      
+
 
         [HttpPost]
         public IActionResult Post([FromBody] Course? course)
@@ -68,15 +68,15 @@ namespace WebApplicationlabb.Controllers
         }
 
 
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, Course course)
-        //{
-        //    if (string.IsNullOrEmpty(course.Name.Trim())) return BadRequest();
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Course course)
+        {
+            if (string.IsNullOrEmpty(course.Name.Trim())) return BadRequest();
 
-        //    return _unitOfWork.CourseRepository.UpdateCourse(id, course) ? Ok() : NotFound();
-        //}
+            return _unitOfWork.CourseRepository.UpdateCourse(id, course) ? Ok() : NotFound();
+        }
 
-        [HttpPatch("/Course/{id}/name")]
+        [HttpPatch("{id}/name")]
         public IActionResult PatchName(int id, string name)
         {
             if (string.IsNullOrEmpty(name.Trim())) return BadRequest();

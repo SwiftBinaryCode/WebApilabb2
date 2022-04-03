@@ -1,0 +1,74 @@
+﻿@page
+@model WebApplicationlabb.Pages.Users.UserIndexModel
+@{
+    ViewData["Title"] = "Users page";
+}
+
+<form action="/users" method="post">
+    <input type="text" id="user-name" placeholder="Name">
+    <br/>
+    <input type="text" id="user-email" placeholder="Email">
+    <br/>
+</form>
+<button class="btn btn-secondary" id="add-user">Add user</button>
+
+<br/>
+
+<button class="btn btn-primary" id="get-users">Get Users</button>
+
+<div class="container">
+    <div class="row" id="user-list"></div>
+</div>
+
+@section Scripts {
+    <script>
+        const userList = document.getElementById("user-list");
+        const getAllUsers = document.getElementById("get-users");
+        const addUser = document.getElementById("add-user");
+        addUser.addEventListener('click',
+            function(event) {
+                event.preventDefault();
+                const userName = document.getElementById("user-name").value;
+                const userEmail = document.getElementById("user-email").value;
+                const userInfo = { name: userName, email: userEmail };
+                postUser("/User", userInfo);
+            });
+        getAllUsers.addEventListener("click",
+            () => {
+                showUsers();
+            });
+        const showUsers = () => {
+            fetch("/User")
+                .then(response => response.json())
+                .then(data => {
+                    for (let i = 0; i < data.length; i++) {
+                        let content = `<div class="col-sm-4">
+                        <div class="card">
+                        <div class="card-body">
+                        <h5 class="card-title">${data[i].name}</h5>
+                        <p class="card-title">${data[i].email}</p>
+                        <p class="card-title">
+                        <ul>
+                        <li>${data[i].courses}</li>
+                        </ul>
+                        </p>
+                        </div>
+                        </div>
+                        </div>`;
+                        document.getElementById("user-list").innerHTML += content;
+                    }
+                });
+        }
+        const postUser = (url = "", data = {} ) => {
+            fetch(url,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    })
+                .then(response => console.log(response));
+        }
+    </script>
+}

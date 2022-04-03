@@ -60,7 +60,7 @@ namespace WebApplicationlabb.Controllers
             return _unitOfWork.UserRepository.UpdateUser(id, user) ? Ok() : NotFound();
         }
 
-        [HttpPatch("/User/name/{id}")]
+        [HttpPatch("{id}/name")]
         public IActionResult PatchName(int id, string name)
         {
             if (string.IsNullOrEmpty(name.Trim())) return BadRequest();
@@ -68,7 +68,7 @@ namespace WebApplicationlabb.Controllers
             return _unitOfWork.UserRepository.UpdateUserName(id, name) ? Ok(_unitOfWork.UserRepository.GetUser(id)) : NotFound();
         }
 
-        [HttpPatch("/User/email/{id}")]
+        [HttpPatch("{id}/email")]
         public IActionResult PatchEmail(int id, string email)
         {
             if (string.IsNullOrEmpty(email.Trim())) return BadRequest();
