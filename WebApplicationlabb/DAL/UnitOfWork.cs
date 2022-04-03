@@ -48,8 +48,9 @@
         public void Dispose()
         {
             _context.Dispose();
-            _userRepository.Dispose();
-            
+            //_userRepository.Dispose();
+            //_courseRepository.Dispose();
+
         }
     }
 }

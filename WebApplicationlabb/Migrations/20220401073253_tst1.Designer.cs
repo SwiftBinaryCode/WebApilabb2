@@ -11,7 +11,7 @@ using WebApplicationlabb.DAL;
 namespace WebApplicationlabb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220331183328_tst1")]
+    [Migration("20220401073253_tst1")]
     partial class tst1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
