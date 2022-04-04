@@ -11,7 +11,7 @@ using WebApplicationlabb.DAL;
 namespace WebApplicationlabb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220403182536_test1")]
+    [Migration("20220404143543_test1")]
     partial class test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,10 +61,11 @@ namespace WebApplicationlabb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
                     b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("courseNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

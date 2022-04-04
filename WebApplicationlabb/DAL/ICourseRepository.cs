@@ -11,7 +11,7 @@ namespace WebApplicationlabb.DAL
         
    
         Course? GetCourse(int id);
-        Course? GetCourseByNumber(int number);
+        Course? GetCourseByNumber(string courseNumber);
 
         bool UpdateCourse(int id, Course course);
         bool UpdateCourseName(int id, string name);

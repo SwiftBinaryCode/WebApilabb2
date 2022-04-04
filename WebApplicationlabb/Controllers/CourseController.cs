@@ -27,7 +27,7 @@ namespace WebApplicationlabb.Controllers
             return Ok(courses);
         }
 
-        //[HttpGet("{id}")]
+        //[HttpGet("Courses/{id}")]
         //public IActionResult GetCourse(int id)
         //{
         //    var course = _unitOfWork.CourseRepository.GetCourse(id);
@@ -41,7 +41,7 @@ namespace WebApplicationlabb.Controllers
             return Ok(_unitOfWork.CourseRepository.GetCourseUsers(id));
         }
 
-        [HttpPut("{id}")]
+        [HttpPost("{id}")]
         public IActionResult AddUserToCourse(int id, int userId)
         {
             _unitOfWork.CourseRepository.AddUserToCourse(id, userId);
@@ -49,10 +49,10 @@ namespace WebApplicationlabb.Controllers
             return Ok();
         }
 
-        [HttpGet("{number}")]
-        public IActionResult GetCourseByNumber(int number)
+        [HttpGet("find/{courseNumber}")]
+        public IActionResult GetCourseByNumber(string courseNumber)
         {
-            var course = _unitOfWork.CourseRepository.GetCourseByNumber(number);
+            var course = _unitOfWork.CourseRepository.GetCourseByNumber(courseNumber);
 
             return course is null ? NotFound() : Ok(course);
         }

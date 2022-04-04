@@ -16,11 +16,6 @@ namespace WebApplicationlabb.DAL
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<User>()
-            //    .HasMany<Course>(u => u.Courses)
-            //    .WithMany(c => c.Users)
-            //    .UsingEntity(x => x.ToTable("UserCourse"));
-
         }
     }
 }

@@ -58,9 +58,9 @@ namespace WebApplicationlabb.DAL
         {
             return _context.Courses.Find(id);
         }
-        public Course? GetCourseByNumber(int number)
+        public Course? GetCourseByNumber(string courseNumber)
         {
-            return _context.Courses.Find(number);
+            return _context.Courses.FirstOrDefault(c => c.courseNumber == courseNumber);
         }
 
         public bool UpdateCourse(int id, Course course)
@@ -69,11 +69,11 @@ namespace WebApplicationlabb.DAL
             if (existingCourse is null) return false;
 
             existingCourse.Name = course.Name;
-            //existingCourse.Description = course.Description;
-            //existingCourse.Number = course.Number;
-            //existingCourse.Level = course.Level;
-            //existingCourse.Status = course.Status;
-            //existingCourse.Length = course.Length;
+            existingCourse.Description = course.Description;
+            existingCourse.courseNumber = course.courseNumber;
+            existingCourse.Level = course.Level;
+            existingCourse.Status = course.Status;
+            existingCourse.Length = course.Length;
             _context.SaveChanges();
             return true;
         }
